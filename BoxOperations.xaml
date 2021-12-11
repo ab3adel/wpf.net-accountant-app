@@ -1,0 +1,136 @@
+﻿<Window x:Class="accountant.BoxOperations"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:accountant"
+             mc:Ignorable="d" Icon="Icon1.ico"
+            MaxHeight="300" MaxWidth="800"
+             d:DesignHeight="300" d:DesignWidth="800">
+    <Window.Resources>
+        <local:Operation x:Key="mySource"/>
+        <local:MyValidation x:Key="myValidation"/>
+        <local:Translator x:Key="myTranslator"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="border" TargetType="GridSplitter">
+                <Setter Property="Background" Value="Black"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <TextBlock Background="#FF29818F" Text="عائدات" Foreground="Wheat" FontSize="15" TextAlignment="Center"
+                  FontWeight="Bold" />
+        <TextBlock Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Background="Wheat"/>
+        <Grid Grid.ColumnSpan="3" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="3" >
+                <Label Target="{Binding ElementName=boxNameCmbx}" Content=" الخزينة" Grid.Column="3"
+                   HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                <ComboBox x:Name="boxNameCmbx" 
+                          IsEditable="True" DisplayMemberPath="BoxName" Grid.Column="3" Width="200" DropDownOpened="GetBoxeName"
+                 />
+
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1" >
+                <Label Target="{Binding ElementName=ammount}" Content="المبلغ " Grid.Column="1"  
+                 Grid.Row="0" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" />
+                <TextBox x:Name="ammount" Grid.Column="1" Grid.Row="0" 
+                         VerticalAlignment="Bottom" Width="200" >
+                    <TextBox.Text>
+                        <Binding Path="MoneyAmmount" Source="{StaticResource mySource}"
+                                 NotifyOnValidationError="True" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <local:MyValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="0" >
+                <Label Target="{Binding ElementName=cost}" Content="الكلفة " Grid.Column="0"  
+               Grid.Row="0" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="cost" Grid.Column="0" Width="200" >
+                    <TextBox.Text>
+                        <Binding Path="CostPrice" 
+                                 UpdateSourceTrigger="LostFocus" Source="{StaticResource mySource}" 
+                                 NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <local:MyValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <Button x:Name="addOperation" Content="أدخل" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Grid.Row="4" Width="100" Height="40"
+                    FontSize="25" Click="InsertOperation" Margin="10"/>
+            <Button x:Name="cancel" Content="الغاء" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Grid.Column="3" Grid.Row="4"  Width="100" Height="40" 
+                FontSize="25" Click="CancelHandler" Margin="10"/>
+        </Grid>
+        <TextBlock Background="#FF29818F" Text="سحوبات" Foreground="Wheat" Grid.Row="2" TextAlignment="Center"
+                   FontSize="15" FontWeight="Bold" />
+        <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Background="Wheat"/>
+        <Grid Grid.ColumnSpan="3" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="2" Grid.Column="2">
+                <Label Target="{Binding ElementName=boxNameCmbx1}" Content="الخزينة" Grid.Column="3"
+               HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                <ComboBox x:Name="boxNameCmbx1" DisplayMemberPath="BoxName" 
+                         IsEditable="True" Grid.Column="3" Width="200"  DropDownOpened="GetBoxeName"
+                 />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="1">
+                <Label Target="{Binding ElementName=ammount1}" Content="المبلغ " Grid.Column="1"  
+               Grid.Row="0" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ammount1" Grid.Column="1" Grid.Row="0" Width="200" >
+                    <TextBox.Text>
+                        <Binding Path="Hidden"  Source="{StaticResource mySource}"
+                                 NotifyOnValidationError="True" UpdateSourceTrigger="LostFocus">
+                            <Binding.ValidationRules>
+                                <local:MyValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0">
+                <Label Target="{Binding ElementName=sourceCmbx}" Content="المصدر " Grid.Column="0"  
+               Grid.Row="0" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                <ComboBox x:Name="sourceCmbx" Grid.Column="0" Width="200" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource myTranslator}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <Button x:Name="SubOperation" Content="اسحب" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Grid.Row="4" Width="100" Height="40"
+                    FontSize="25" Click="InsertOperation" Margin="10"/>
+            <Button x:Name="clearSub" Content="الغاء" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Grid.Column="3" Grid.Row="4"  Width="100" Height="40" 
+                FontSize="25" Click="CancelHandler" Margin="10"/>
+        </Grid>
+
+
+
+
+</Grid>
+  </Window>

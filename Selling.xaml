@@ -1,0 +1,177 @@
+﻿<UserControl x:Class="accountant.Selling"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:accountant"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900" >
+    <Grid   Width="auto" Height="auto" Grid.Column="1"   >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="المبيعات" Grid.Column="1" FontSize="30" FontWeight="Bold" 
+                   Foreground="#FF29818F" HorizontalAlignment="Center"
+                   FontFamily="{StaticResource MaterialDesignFont}"/>
+        <Grid Grid.ColumnSpan="3" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Foreground="WhiteSmoke" x:Name="backBtn"
+                    Height="80" Margin="10,0" FontSize="17" FontWeight="Bold"
+                  Click="BackProductHandler" >
+                اعادة عنصر
+            </Button>
+     
+            <Button  Foreground="WhiteSmoke" 
+                     Height="80"  FontSize="17" FontWeight="Bold"
+                     x:Name="dailySellings" Margin="10,0"
+                     Click="ShowSellings" Grid.Column="1">
+                سجل المبيعات
+            </Button>
+            
+        </Grid>
+ 
+        <TabControl Grid.Row="2"  Grid.RowSpan="2" Grid.ColumnSpan="3" x:Name="myTab" 
+                    Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+                    BorderBrush="Transparent" BorderThickness="0" >
+            <TabItem TabIndex="0" Visibility="Collapsed">
+                <Grid MouseUp="Check">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+               
+                <StackPanel >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="1,6" >
+                            <local:MyCombobox x:Name="productNameCbx"  IsEditable="True"
+                               HorizontalContentAlignment="Center" FontSize="12"
+                               TextBoxBase.TextChanged="SelectProductName" SelectionChanged="SelectionHandler"
+                               KeyUp="EnterPressed" Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                   Grid.Column="1" Height="50"  Width="250" IsTextSearchEnabled="False"
+                 VerticalContentAlignment="center"
+                  VerticalAlignment="Bottom" />
+                            
+                            <Button  Width="100" HorizontalAlignment="Left" Foreground="WhiteSmoke" 
+                                Margin="10,5" x:Name="addBtn"
+                                     Click="GetProductName"
+                                VerticalAlignment="Bottom">
+                                <ContentControl>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="أضف"/>
+                                        <materialDesign:PackIcon Kind="Done"/>
+                                    </StackPanel>
+                                </ContentControl>
+                            </Button>
+                            <Button Click="RefreshSelling"  
+                                    Foreground="WhiteSmoke"
+                                  
+                                    Width="70"
+                                    VerticalAlignment="Center"
+                                   Margin="0"
+                                    >
+
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Foreground="WhiteSmoke" Kind="Refresh"/>
+                                </StackPanel>
+
+                            </Button>
+                        </StackPanel>
+                        <DataGrid  x:Name="myDataGrid"     AutoGenerateColumns="False" BorderThickness="5" CellEditEnding="CellChanged"
+                    Grid.Row="0" Grid.ColumnSpan="3" KeyUp="myDataGrid_KeyDown"  AlternatingRowBackground="AliceBlue"
+                   SelectionChanged="SelectionHappen" CurrentCellChanged="UpdateSum" CanUserDeleteRows="True" Height="250">
+
+                            <DataGrid.Columns >
+                                <DataGridTextColumn x:Name="productIdCollumn" Header="العنصر Id" Width="*" Binding="{Binding ProductId}" />
+                                <DataGridTextColumn Header="اسم العنصر"  Width="*" Binding="{Binding ProductName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="العدد"  Width="*" 
+                                    Binding="{Binding Number,NotifyOnTargetUpdated=True ,Mode=TwoWay}"   />
+                                <DataGridTextColumn Header="السعر "  Width="*" Binding="{Binding SellingPrice}" IsReadOnly="True" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+
+
+                
+                    <Label Content="المجموع" HorizontalAlignment="Left" FontWeight="Bold" Target="{Binding ElementName=sum}"/>
+                        <TextBox x:Name="sum"  Height="30" Width="250"  IsReadOnly="True" VerticalContentAlignment="Bottom"
+                                 FontSize="15" FontWeight="Bold"  TextAlignment="Center"
+                             HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1"/>
+
+
+               
+                    <Grid  Grid.Column="1"  Grid.Row="1" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Foreground="WhiteSmoke" Content="ادخال" Grid.Column="1" Grid.ColumnSpan="2"
+                                    HorizontalAlignment="Center" VerticalAlignment="Top" Height="50"
+                                    Click="InsertSellings" Width="370"  />
+                            
+                    </Grid>
+                   
+                </StackPanel>
+                    <StackPanel Grid.Column="1"   VerticalAlignment="Center" >
+
+                        <Button  x:Name="deleteBtn1"  Margin="0,10" Width="100"
+                    Background="red" Visibility="Hidden" Click="Delete">
+                            <Button.LayoutTransform>
+                                <RotateTransform Angle="-90"/>
+                            </Button.LayoutTransform>
+                            <StackPanel>
+                                <TextBlock Text="مسح" Foreground="White" >
+                                    <TextBlock.LayoutTransform>
+                                        <RotateTransform Angle="-180"/>
+                                    </TextBlock.LayoutTransform>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="Xbutton" Click="HideSideButtons"  Visibility="Collapsed"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="Close" />
+                            </StackPanel>
+                        </Button>
+                        <Button  x:Name="editBtn1" Width="100" Background="red" Margin="0,10"
+                               Visibility="Hidden" Click="DeleteAll">
+                            <Button.LayoutTransform>
+                                <RotateTransform Angle="-90"/>
+                            </Button.LayoutTransform>
+                            <StackPanel>
+                                <TextBlock Text="مسح الكل" Foreground="white">
+                                    <TextBlock.LayoutTransform>
+                                        <RotateTransform Angle="-180" />
+                                    </TextBlock.LayoutTransform>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem TabIndex="1" Visibility="Collapsed">
+                <local:ShowSellings/>
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
+ 
+    
+</UserControl>

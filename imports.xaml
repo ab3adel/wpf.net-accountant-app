@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="accountant.imports"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:accountant"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+    <UserControl.Resources>
+        <local:Translator x:Key="myTranslator"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="address" Text="الخزائن"  FontSize="30"  Grid.Column="1" VerticalAlignment="Top"
+                  materialDesign:BottomDashedLineAdorner.Thickness="10"
+                   
+                   FontFamily="{materialDesign:MaterialDesignFont}"
+                   Foreground="#FF29818F" FontWeight="Bold" Grid.ColumnSpan="2">
+
+        </TextBlock>
+        <StackPanel Grid.Column="2"  x:Name="cmbxStack" Grid.Row="1" Orientation="Horizontal">
+           
+            <Button Click="Search"  Width="70" Foreground="WhiteSmoke" Margin="0,5,0,0" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Search" Margin="2" Width="19"/>
+
+                    </StackPanel>
+                </Button.Content>
+
+            </Button>
+            <ComboBox x:Name="searchBoxCmbx"  TextBoxBase.TextChanged="SearchBox" 
+                      VerticalAlignment="Center" Width="200" Margin="5,10"
+                     PreviewKeyUp="GotBox" IsEditable="True">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding BoxName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <Button   Content=" ادخال\اخراج"  Grid.Row="1" Foreground="WhiteSmoke" FontSize="16"
+                  VerticalContentAlignment="Center"
+                x:Name="boxOperationsbtn" Click="OperationsHandler" Margin="10" Height="90">
+
+        </Button>
+        <Button   Content=" أخر العمليات"  Grid.Column="1" Grid.Row="1" Margin="10"
+                  Foreground="WhiteSmoke" 
+                x:Name="lastOperationBtn" Click="ShowLastOperation"  Height="90">
+
+        </Button>
+        <TabControl Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="3" 
+                    BorderThickness="0" Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+                    x:Name="myTab">
+            <TabItem Visibility="Collapsed" >
+                <DataGrid Grid.Row="1" x:Name="myDataGrid" Grid.ColumnSpan="3" 
+                          BorderThickness="5"
+                          CanUserAddRows="False" Margin="5"
+                          SelectedCellsChanged="ShowOperation" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="الخزينة" Binding="{Binding BoxName}" Width="*" IsReadOnly="True" />
+                        <DataGridTextColumn Header="المبلغ الكلي" Binding="{Binding TotallAmmount}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="الربح الكلي" Binding="{Binding TotallGain}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="الكلفة الكلية" Binding="{Binding TotallCost}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="اخرتعديل" Binding="{Binding Created}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </TabItem>
+            <TabItem Visibility="Collapsed">
+                <DataGrid Grid.Row="1" x:Name="myDataGrid1" Grid.ColumnSpan="3" AutoGenerateColumns="False" 
+                        BorderThickness="5" Margin="5" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="الخزينة" Binding="{Binding Name}" Width="*" IsReadOnly="True" />
+                        <DataGridTextColumn Header="المبلغ" Binding="{Binding MoneyAmmount}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="النوع " Binding="{Binding Type ,Converter={StaticResource myTranslator}}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="الكلفة" Binding="{Binding CostPrice}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="تاريخ الادخال" Binding="{Binding Inserted}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="مصدر السحوبات" Binding="{Binding ExpenseSource ,Converter={StaticResource myTranslator}}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
+</UserControl>

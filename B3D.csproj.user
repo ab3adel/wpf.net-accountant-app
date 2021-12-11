@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\Users\moham\source\repos\accountant\Properties\PublishProfiles\ClickOnceProfile2.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="AddBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="addProduct.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Admin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="authentication.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="BackProduct.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="BoxOperations.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="imports.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Records.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Revenue.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="RevenueDetail.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Selling.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ShowSellings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Store.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AddBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="addProduct.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Admin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="authentication.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="BackProduct.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="BoxOperations.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="imports.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Records.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Revenue.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="RevenueDetail.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Selling.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ShowSellings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Store.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

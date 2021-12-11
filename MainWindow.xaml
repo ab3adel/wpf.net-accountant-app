@@ -1,0 +1,125 @@
+﻿<Window x:Class="accountant.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:accountant"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResizeWithGrip"
+        xmlns:uc ="clr-namespace:accountant"
+        mc:Ignorable="d" Icon="Icon1.ico"
+        TextElement.Foreground="{DynamicResource MaterialDesignDarkForeground}"
+        SizeToContent="WidthAndHeight"
+
+        Height="1200" Width="1100"
+        Margin="10"
+        Title="B3d" MaxHeight="1200" 
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+    <Window.Resources>
+       
+        <Storyboard x:Key="openSideBar" x:Name="openSideBar" >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="sideMenu">
+                <SplineDoubleKeyFrame KeyTime="0" Value="30"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0:0.5" Value="100"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="colseSideBar"  x:Name="closeSideBar">
+            <DoubleAnimationUsingKeyFrames x:Name="closeSideBarDouble" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="sideMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="30"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        
+    </Window.Resources>
+    <Window.Triggers>
+        
+    </Window.Triggers>
+    <Grid x:Name="mainGrid" MouseUp="MouseUp_Handler" ShowGridLines="False" >
+        <Grid.Resources>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition  Width="13*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" ShowGridLines="False">
+            <Grid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+        </Grid>
+        <StackPanel Grid.Row="1" Background="#FF29818F" Width="100"  x:Name="sideMenu" 
+                       Panel.ZIndex="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Left">
+            <ListView  Foreground="#FFF2FBFB" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Height="490">
+                <ListViewItem Margin="0,10" Selected="Store_Section" x:Name="storebtn">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Store" Width="20"/>
+                        <TextBlock Text="المستودع" Margin="10,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem  Margin="0,10" Selected="Salary_Section" x:Name="salaryBtn">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Sale" />
+                        <TextBlock Text="المبيعات" Margin="10,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem  Margin="0,10" Selected="Box_Section" x:Name="boxBtn">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Box" />
+                        <TextBlock Text="خزائن" Margin="10,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem  Margin="0,10" Selected="Revenue_Section" x:Name="revenueBtn">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Money" />
+                        <TextBlock Text="السجلات" Margin="10,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem  Margin="0,10" Selected="Admin_Panel" x:Name="adminBtn">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Administrator" />
+                        <TextBlock Text="Admin" Margin="10,0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem  Margin="0,10" MouseUp="Security_Section" x:Name="lockBtn" >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="lock" />
+                        <TextBlock Text="القفل" Margin="10,0"/>
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+        </StackPanel>
+        <TabControl x:Name="tabControl" Grid.Column="1" BorderThickness="0" 
+                    Height="auto" Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+                    BorderBrush="Transparent" >
+            <TabItem Visibility="Collapsed"  >
+                <uc:Store/>
+            </TabItem>
+            <TabItem Visibility="Collapsed" >
+                <uc:Selling/>
+            </TabItem>
+            <TabItem Visibility="Collapsed" >
+                <uc:imports/>
+            </TabItem>
+            <TabItem Visibility="Collapsed" >
+                <uc:Revenue/>
+            </TabItem>
+            <TabItem Visibility="Collapsed" >
+                <uc:Admin/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

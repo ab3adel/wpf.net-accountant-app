@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="accountant.RevenueDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:accountant"
+        mc:Ignorable="d"
+        Height="600" Width="900">
+ 
+
+        <TabControl  Margin="0" x:Name="myTab1"
+                 BorderThickness="0"
+                   >
+            <TabItem Visibility="Collapsed" TabIndex="0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="الشهر" Target="{Binding ElementName=cmbxMonth}" 
+                           FontWeight="Bold" FontSize="16" VerticalAlignment="Top"
+                           HorizontalAlignment="center" Grid.Column="2"/>
+                    <ComboBox x:Name="cmbxMonth" IsEditable="False" DisplayMemberPath="monthNumber"
+                              HorizontalContentAlignment="Center" FontSize="15"
+                  Grid.Column="2" VerticalAlignment="Bottom" SelectionChanged="SetMonth"/>
+                    <Button Click="Search" Foreground="WhiteSmoke" Width="70"  Grid.Column="1" VerticalAlignment="Bottom">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Search" Margin="2" Width="19"/>
+
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Label Content="السنة" Target="{Binding ElementName=cmbxMonth}" VerticalAlignment="Top"
+                           FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"
+                           Grid.Column="0"/>
+                    <ComboBox x:Name="cmbxYear" IsEditable="False" DisplayMemberPath="yearNumber"
+                              SelectionChanged="SetYear" HorizontalContentAlignment="Center" FontSize="15"
+                  Grid.Column="0" VerticalAlignment="Bottom" />
+                    <DataGrid Grid.Row="1" Grid.RowSpan="2" x:Name="myDataGrid"
+                              BorderThickness="5" Margin="5" Grid.Column="0"
+                          Grid.ColumnSpan="3" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="الخزينة" Binding="{Binding BoxName}" Width="*"/>
+                            <DataGridTextColumn Header="الربح الكلي" Binding="{Binding TotallGain}" Width="*"/>
+                            <DataGridTextColumn Header="الكلفة الكلية" Binding="{Binding TotallCost}" Width="*"/>
+                            <DataGridTextColumn Header="السحب الكلي" Binding="{Binding TotallAmmount}" Width="*"/>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock>التفاصيل</TextBlock>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="ShowDetail" Foreground="WhiteSmoke">
+                                            اظهار التفاصيل
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Visibility="Collapsed"  TabIndex="1">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button  Click="GoBack" HorizontalAlignment="Right" Width="150" >
+                        <ContentControl>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ArrowBack" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="الرجوع" Foreground="WhiteSmoke" />
+                            </StackPanel>
+                        </ContentControl>
+                    </Button>
+                    <DataGrid x:Name="detailDataGrid" Grid.Row="1" Margin="5"
+                              AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="اليوم" Binding="{Binding ExtraField}" Width="*"/>
+                            <DataGridTextColumn Header="الخزينة" Binding="{Binding BoxName}" Width="*"/>
+                            <DataGridTextColumn Header="الربح" Binding="{Binding TotallGain}" Width="*"/>
+                            <DataGridTextColumn Header="الكلفة" Binding="{Binding TotallCost}" Width="*"/>
+                            <DataGridTextColumn Header="السحب" Binding="{Binding TotallAmmount}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    
+</UserControl>
